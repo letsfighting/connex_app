@@ -27,11 +27,11 @@ export default function CreditCardAuth() {
     const authKey = "A123JDKn12l123@11saazdeop102";
     axios
       .post(
-        "https://us-west2-connexinterview.cloudfunctions.net/cardactivation",
+        "/cardactivation",
         {
           cardnumber: cardnumber,
           csv: csv,
-          expirydate: expirydata,
+          expirydata: expirydata,
           phonenumber: phonenumber,
         },
         {
