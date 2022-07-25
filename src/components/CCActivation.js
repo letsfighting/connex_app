@@ -48,22 +48,28 @@ export default function CreditCardAuth() {
 
   return (
     <ThemeProvider theme={theme}>
+      <Box
+        component="img"
+        sx={{
+          width: "100%",
+        }}
+        alt="banner.jpg"
+        src="https://cdn.discordapp.com/attachments/294982585027788812/1001242808147005590/unknown.png"
+      />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 0,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
-          <Grid p={10}>
-            <img
-              src="https://cdn.discordapp.com/attachments/856696248111595541/978644697213980722/logo.png"
-              alt="Charcuterie"
-            />
-          </Grid>
+          {/* <img
+            src="https://cdn.discordapp.com/attachments/294982585027788812/1001240655923789854/unknown.png"
+            alt="banner"
+          /> */}
 
           <Typography variant="h5">Let's activate your credit card!</Typography>
           <Typography variant="p">
