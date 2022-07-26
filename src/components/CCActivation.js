@@ -2,7 +2,6 @@ import axios from "axios";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-// import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -17,7 +16,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: "100%",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -27,17 +26,16 @@ const style = {
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#242F36", // charcoal grey complement
+      main: "#242F36",
     },
   },
 });
 
 export default function CreditCardAuth() {
+  // to handle states relating to the overlays that report on card activation success/failure
   const [success, setSuccess] = React.useState(false);
   const [datafail, setDatafail] = React.useState(false);
   const [authfail, setAuthfail] = React.useState(false);
-
-  const [invalid, setInvalid] = React.useState(false);
 
   const successOpen = () => setSuccess(true);
   const successClose = () => {
@@ -49,9 +47,8 @@ export default function CreditCardAuth() {
   const datafailClose = () => setDatafail(false);
   const authfailOpen = () => setAuthfail(true);
   const authfailClose = () => setAuthfail(false);
-  const invalidOpen = () => setInvalid(true);
-  const invalidClose = () => setInvalid(false);
 
+  //to handle submission of the form
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -59,47 +56,60 @@ export default function CreditCardAuth() {
     const csv = data.get("csv");
     const phonenumber = data.get("phonenumber");
     const expirydata = data.get("expirydata");
-    const authKey = "123JDKn12l123@11saazdeop102";
+    const authKey = "A123JDKn12l123@11saazdeop102";
 
-    axios
-      .post(
-        "/cardactivation",
-        {
-          cardnumber: cardnumber,
-          csv: csv,
-          expirydata: expirydata,
-          phonenumber: phonenumber,
-        },
-        {
-          headers: {
-            Authkey: authKey,
-            "Content-Type": "application/json",
+    //to handle basic validation of the form
+    if (cardnumber.length !== 16 || isNaN(cardnumber)) {
+      alert(
+        "Format Error: Invalid card number. Please enter a 16-digit card number."
+      );
+    } else if (csv.length !== 3 || isNaN(csv)) {
+      alert("Format Error: Invalid CSV. Please enter a 3 digit number.");
+    } else if (expirydata.length !== 4 || isNaN(expirydata)) {
+      alert(
+        "Format Error: Invalid expiry date. Please enter the date in MMYY format without any additional characters."
+      );
+    } else if (phonenumber.length !== 10 || isNaN(expirydata)) {
+      alert(
+        "Format Error: Invalid phone number. Please enter a 10-digit phone number without spaces or dashes."
+      );
+      //to handle the actual request to the server when the form complies with basic validation
+    } else {
+      axios
+        .post(
+          "/cardactivation",
+          {
+            cardnumber: cardnumber,
+            csv: csv,
+            expirydata: expirydata,
+            phonenumber: phonenumber,
           },
-        }
-      )
-      .then((res) => {
-        console.log("data: ", res.data);
-        console.log("status: ", res.status);
-        console.log("res: ", res);
-        if (res.status === 200) {
-          alert("Card Activated Successfully");
-          successOpen();
-        }
-      })
-      .catch((err) => {
-        console.log("err: ", err.request.status);
-        if (err.request.status === 400) {
-          datafailOpen();
-        } else if (err.request.status === 401) {
-          authfailOpen();
-        } else {
-          alert(
-            "Card Activation Failed - Error Code: ",
-            err.request.status,
-            ". Please contact an administrator."
-          );
-        }
-      });
+          {
+            headers: {
+              Authkey: authKey,
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            successOpen();
+          }
+        })
+        .catch((err) => {
+          if (err.request.status === 400) {
+            datafailOpen();
+          } else if (err.request.status === 401) {
+            authfailOpen();
+          } else {
+            alert(
+              "Card Activation Failed - Error Code: ",
+              err.request.status,
+              ". Please contact an administrator."
+            );
+          }
+        });
+    }
   };
 
   return (
@@ -115,7 +125,7 @@ export default function CreditCardAuth() {
             Card Activated!
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            You card has been activated successfully! Please close this window
+            Your card has been activated successfully! Please close this window
             to refresh the page.
           </Typography>
         </Box>
