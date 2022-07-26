@@ -186,8 +186,8 @@ export default function CreditCardAuth() {
               Let's activate your credit card!
             </Typography>
             <Typography variant="p">
-              To get started, please enter your 16 digit credit card number,
-              CSV, Expiry Date, and associated Phone Number
+              To get started, please enter your 16-digit credit card number,
+              CSV, expiry date, and associated phone number
             </Typography>
             <Box
               component="form"
