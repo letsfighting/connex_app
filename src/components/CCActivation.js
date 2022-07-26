@@ -42,7 +42,15 @@ export default function CreditCardAuth() {
         }
       )
       .then((res) => {
-        console.log(res);
+        console.log("data: ", res.data);
+        console.log("status: ", res.status);
+        console.log("res: ", res);
+        if (res.status === 200) {
+          alert("Card Activated Successfully");
+        }
+      })
+      .catch((err) => {
+        alert("Error in Activating Card");
       });
   };
 
@@ -54,7 +62,7 @@ export default function CreditCardAuth() {
           width: "100%",
         }}
         alt="banner.jpg"
-        src="https://cdn.discordapp.com/attachments/294982585027788812/1001242808147005590/unknown.png"
+        src="https://cdn.discordapp.com/attachments/294982585027788812/1001274297672798228/unknown.png"
       />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
