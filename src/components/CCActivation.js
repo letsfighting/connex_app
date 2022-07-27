@@ -11,6 +11,10 @@ import * as React from "react";
 
 import Modal from "@mui/material/Modal";
 
+const API_URL = "https://us-west2-connexinterview.cloudfunctions.net";
+
+axios.defaults.withCredentials = true;
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -78,7 +82,7 @@ export default function CreditCardAuth() {
     } else {
       axios
         .post(
-          "/cardactivation",
+          `${API_URL}/cardactivation`,
           {
             cardnumber: cardnumber,
             csv: csv,
