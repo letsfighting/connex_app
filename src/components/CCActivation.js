@@ -104,9 +104,7 @@ export default function CreditCardAuth() {
             authfailOpen();
           } else {
             alert(
-              "Card Activation Failed - Error Code: ",
-              err.request.status,
-              ". Please contact an administrator."
+              `Card Activation Failed - Error Code: ${err.request.status}. Please contact an administrator.`
             );
           }
         });
