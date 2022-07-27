@@ -16,7 +16,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "100%",
+  width: "90%",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -57,6 +57,7 @@ export default function CreditCardAuth() {
     const phonenumber = data.get("phonenumber");
     const expirydata = data.get("expirydata");
     const authKey = "A123JDKn12l123@11saazdeop102";
+    const content = "application/json";
 
     //to handle basic validation of the form
     if (cardnumber.length !== 16 || isNaN(cardnumber)) {
@@ -87,7 +88,7 @@ export default function CreditCardAuth() {
           {
             headers: {
               Authkey: authKey,
-              "Content-Type": "application/json",
+              "Content-Type": content,
             },
           }
         )
