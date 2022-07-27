@@ -78,7 +78,7 @@ export default function CreditCardAuth() {
     } else {
       axios
         .post(
-          "/cardactivation",
+          "https://us-west2-connexinterview.cloudfunctions.net",
           {
             cardnumber: cardnumber,
             csv: csv,
