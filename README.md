@@ -4,7 +4,7 @@ This is a submission for the second challenge from the problem set.
 
 ## Setup
 
-Clone the repo and run:
+Clone the repo and the directory run:
 
 ### `npm install`
 
